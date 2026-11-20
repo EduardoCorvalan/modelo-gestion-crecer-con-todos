@@ -1,0 +1,696 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Modelo de Gestión Crecer con Todos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: informe de Directorio. Índice lateral fijo en escritorio, columna de lectura de ~860px, tablas densas y gráficos a ancho completo. */
+:root{
+  --bg:#FFFFFF; --panel:#F4F6F7; --ink:#1B1F24; --muted:#5A636D; --rule:#D8DDE2; --rule-strong:#AEB6BF;
+  --accent:#0E5A64; --accent-2:#79A6AD; --series-3:#B9C1C9;
+  --hi:#A43D2C; --mid:#B9862D; --lo:#4E7D5B; --hi-soft:#F3DEDA; --mid-soft:#F4EAD6; --lo-soft:#DFEBE2;
+  --f-head:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-num:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111417; --panel:#181C21; --ink:#E5E8EB; --muted:#9BA4AE; --rule:#2B3239; --rule-strong:#46505A;
+  --accent:#62B4BF; --accent-2:#2F6E76; --series-3:#56606A;
+  --hi:#E07A66; --mid:#D9AE5C; --lo:#7DB78C; --hi-soft:#3A221E; --mid-soft:#352C1B; --lo-soft:#1E2F23; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111417; --panel:#181C21; --ink:#E5E8EB; --muted:#9BA4AE; --rule:#2B3239; --rule-strong:#46505A;
+  --accent:#62B4BF; --accent-2:#2F6E76; --series-3:#56606A;
+  --hi:#E07A66; --mid:#D9AE5C; --lo:#7DB78C; --hi-soft:#3A221E; --mid-soft:#352C1B; --lo-soft:#1E2F23; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.6}
+.shell{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px}
+@media (max-width:1000px){.shell{grid-template-columns:minmax(0,1fr);gap:0}.toc{display:none}}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;font-size:.82rem;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--rule);padding-left:14px}
+.toc a{color:var(--muted);text-decoration:none}
+.toc a:hover,.toc a:focus-visible{color:var(--accent)}
+.toc b{font-family:var(--f-num);font-weight:500;color:var(--ink);margin-right:6px}
+@media (max-width:1000px){nav.toc{display:none}}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll svg{min-width:560px}
+/* mapa estratégico en HTML */
+.smap{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.smap .row{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:center}
+.smap .row>b{font-family:var(--f-head);font-size:.95rem;font-weight:600}
+.smap .objs{display:flex;flex-wrap:wrap;gap:8px}
+.smap .obj{flex:1 1 180px;min-width:0;border:1px solid var(--rule-strong);background:var(--panel);padding:8px 10px;font-size:.86rem;text-align:center}
+.smap .row.top .obj{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:500}
+@media (max-width:640px){.smap .row{grid-template-columns:1fr;gap:6px}}
+main{min-width:0;max-width:880px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3,h4{font-family:var(--f-head);text-wrap:balance;margin:0;line-height:1.2;font-weight:600}
+h1{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:700}
+h2{font-size:clamp(1.35rem,2.6vw,1.75rem);display:flex;gap:12px;align-items:baseline}
+h2 .n{font-family:var(--f-num);font-size:.85rem;color:var(--accent);font-weight:500}
+h3{font-size:1.1rem}
+h4{font-family:var(--f-body);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+p{margin:0;max-width:72ch}
+section{display:flex;flex-direction:column;gap:18px;scroll-margin-top:24px}
+.lede{color:var(--muted);font-size:1.02rem}
+.num,td.n,.tn{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rule{border-top:1px solid var(--rule)}
+/* portada */
+.cover{border-top:3px solid var(--ink);padding-top:18px;display:flex;flex-direction:column;gap:14px}
+.cover .org{font-family:var(--f-num);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
+.meta b{color:var(--ink);font-weight:500}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.facts div{padding:12px 14px 12px 0;display:flex;flex-direction:column;gap:2px}
+.facts b{font-family:var(--f-num);font-size:1.25rem;font-weight:500}
+.facts span{font-size:.8rem;color:var(--muted)}
+/* resumen */
+.exec{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.exec>*{min-width:0}
+@media (max-width:760px){.exec{grid-template-columns:1fr}}
+ol.tight,ul.tight{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+ol.tight li::marker{font-family:var(--f-num);color:var(--accent)}
+/* tablas */
+.tw{overflow-x:auto;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+.tw.wide table{min-width:820px}
+.tw.mid table{min-width:600px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
+th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--panel)}
+tr.grp td{background:var(--panel);font-family:var(--f-head);font-weight:600;font-size:.92rem;color:var(--accent)}
+td code{font-family:var(--f-num);font-size:.8rem;background:var(--panel);padding:1px 4px;border-radius:3px;white-space:normal}
+.tag{font-family:var(--f-num);font-size:.72rem;color:var(--accent);white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.cap{font-size:.78rem;color:var(--muted)}
+/* gráficos */
+.fig{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--rule);padding-top:14px}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .read{font-size:.92rem}
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.figs>*{min-width:0}
+@media (max-width:760px){.figs{grid-template-columns:1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.78rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+svg text{font-family:var(--f-num);font-size:11px;fill:var(--muted)}
+svg .lbl{fill:var(--ink)}
+svg .hl{fill:var(--accent);font-weight:500}
+/* módulos */
+.mod{border-top:2px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:14px}
+.mod header{display:flex;flex-direction:column;gap:4px}
+.mod .code{font-family:var(--f-num);font-size:.8rem;color:var(--accent)}
+.mgrid{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--rule)}
+.mgrid>div{padding:10px 0;border-bottom:1px solid var(--rule)}
+.mgrid>.k{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-right:14px}
+@media (max-width:640px){.mgrid{grid-template-columns:1fr}.mgrid>.k{border-bottom:0;padding-bottom:0}}
+.mgrid ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px}
+.src{font-family:var(--f-num);font-size:.74rem;color:var(--muted);overflow-wrap:anywhere}
+.refs{font-family:var(--f-num);font-size:.82rem}
+/* simulador */
+.sim{background:var(--panel);border:1px solid var(--rule);padding:18px;display:flex;flex-direction:column;gap:14px}
+.seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--rule-strong);width:max-content;max-width:100%}
+.seg button{font:inherit;font-size:.85rem;border:0;border-right:1px solid var(--rule-strong);background:transparent;color:var(--ink);padding:6px 14px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ctrls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:.85rem}
+.ctrl label{display:flex;justify-content:space-between;gap:8px}
+.ctrl output{font-family:var(--f-num);color:var(--accent)}
+.ctrl input{width:100%;accent-color:var(--accent)}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border-top:1px solid var(--rule)}
+.res div{padding:10px 12px 4px 0;display:flex;flex-direction:column}
+.res b{font-family:var(--f-num);font-size:1.2rem;font-weight:500}
+.res span{font-size:.8rem;color:var(--muted)}
+/* calendario */
+.cal{display:grid;grid-template-columns:170px repeat(12,minmax(26px,1fr));font-size:.76rem;min-width:620px}
+.cal div{padding:5px 4px;border-bottom:1px solid var(--rule)}
+.cal .h{color:var(--muted);font-family:var(--f-num);text-align:center}
+.cal .r{color:var(--ink)}
+.cal .c{border-left:1px solid var(--bg)}
+.cal .c1{background:var(--accent-2)}
+.cal .c2{background:var(--accent)}
+.calw{overflow-x:auto}
+/* tres líneas */
+.lines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+@media (max-width:700px){.lines{grid-template-columns:1fr}}
+.lines div{padding:12px 14px 12px 0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.lines b{font-family:var(--f-head);font-size:1rem}
+footer{border-top:2px solid var(--ink);padding-top:14px;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+@media (prefers-reduced-motion:no-preference){.bar{transition:height .35s ease,y .35s ease}}
+.print-only{display:none}
+/* Impresión y PDF: A4, paleta clara, portada propia, contenido continuo sin cortes dentro de gráficos, filas ni bloques. */
+@page{size:A4;margin:15mm 16mm 16mm}
+@media print{
+  :root,:root[data-theme="dark"]{
+    --bg:#FFFFFF; --panel:#F4F6F7; --ink:#1B1F24; --muted:#5A636D; --rule:#D8DDE2; --rule-strong:#AEB6BF;
+    --accent:#0E5A64; --accent-2:#79A6AD; --series-3:#B9C1C9;
+    --hi:#A43D2C; --mid:#B9862D; --lo:#4E7D5B; --hi-soft:#F3DEDA; --mid-soft:#F4EAD6; --lo-soft:#DFEBE2; color-scheme:light}
+  html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#fff}
+  body{font-size:9.4pt;line-height:1.48}
+  .toc{display:none!important}
+  .shell{display:block;max-width:none;padding:0}
+  main,section,.mod,.fig,#mods{display:block!important}
+  main{max-width:none}
+  p{max-width:none}
+  section>*+*{margin-top:9pt}
+  section+section{margin-top:22pt}
+  .fig>*+*{margin-top:5pt}
+  .mod>*+*{margin-top:7pt}
+  .mod+.mod{margin-top:16pt}
+  /* portada */
+  .cover{display:flex!important;flex-direction:column;gap:14pt;height:263mm;padding-top:46mm;border-top:7pt solid var(--accent);break-after:page;position:relative}
+  .cover .org{font-size:8pt;color:var(--accent)}
+  .cover h1{font-size:31pt;line-height:1.12;max-width:17ch}
+  .cover .lede{font-size:11.5pt;max-width:60ch}
+  .cover .facts{margin-top:16pt;grid-template-columns:repeat(5,minmax(0,1fr))}
+  #fuentes{break-before:page}
+  .cover .facts b{font-size:14pt;white-space:nowrap}
+  .cover .meta{margin-top:auto;font-size:8.5pt}
+  /* títulos */
+  h2{font-size:16pt;border-top:1.5pt solid var(--ink);padding-top:7pt}
+  h2 .n{font-size:9pt}
+  h3{font-size:11pt}
+  h4{font-size:7pt}
+  h2,h3,h4,.mod header{break-after:avoid}
+  .lede,.read{font-size:9.2pt}
+  /* bloques que no se cortan */
+  .fig,.figs,.sim,.lines,.smap,.calw,tr,.mgrid>div,.facts,.res,.exec>div,.mod header,ol.tight li,svg,footer{break-inside:avoid}
+  .exec{grid-template-columns:1fr 1fr;gap:16pt}
+  .figs{grid-template-columns:1fr 1fr;gap:16pt}
+  .lines{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mgrid{grid-template-columns:110pt minmax(0,1fr)}
+  .mgrid>div{padding:6pt 0}
+  .mgrid ul{gap:4pt}
+  /* tablas */
+  .tw,.calw,.scroll,.fig{overflow:visible!important}
+  .tw.wide table,.tw.mid table,.cal,.scroll svg,#gantt{min-width:0!important}
+  table{font-size:8.1pt}
+  th{font-size:6.6pt}
+  th,td{padding:4.5pt 6pt}
+  thead{display:table-header-group}
+  tr.grp{break-after:avoid}
+  td code{font-size:7.4pt}
+  .cal{font-size:7pt}
+  .cal div{padding:2.5pt 3pt}
+  #heat{max-height:72mm;margin:0 auto}
+  .legend,.cap{font-size:7.4pt}
+  .src{font-size:7pt}
+  .refs{font-size:7.2pt;line-height:1.38}
+  .mgrid ul.refs{gap:2pt}
+  /* simulador sin controles */
+  .seg,.ctrl input{display:none!important}
+  .sim{padding:10pt}
+  .print-only{display:block}
+  a{color:inherit;text-decoration:none}
+  footer{margin-top:18pt}
+}
+</style>
+
+<div class="shell">
+<nav class="toc" aria-label="Índice">
+  <a href="#resumen"><b>1</b>Resumen ejecutivo</a>
+  <a href="#diagnostico"><b>2</b>Diagnóstico</a>
+  <a href="#riesgos"><b>3</b>Riesgos</a>
+  <a href="#modelo"><b>4</b>Modelo de gestión</a>
+  <a href="#m1"><b>5</b>Seis frentes del cargo</a>
+  <a href="#tablero"><b>6</b>Tablero de indicadores</a>
+  <a href="#ruta"><b>7</b>Hoja de ruta 2027</a>
+  <a href="#fuentes"><b>8</b>Fuentes y método</a>
+</nav>
+
+<main>
+<header class="cover">
+  <div class="org">Fundación Crecer con Todos · Dirección de Finanzas y Gestión Organizacional</div>
+  <h1>Modelo de Gestión Financiera y Organizacional</h1>
+  <p class="lede">Propuesta de trabajo para la Dirección Ejecutiva y el Directorio. Diagnóstico con información pública, modelo de gestión, instrumentos por función, indicadores, riesgos y hoja de ruta para el ciclo 2027.</p>
+  <div class="facts">
+    <div><b>2010</b><span>año de inicio</span></div>
+    <div><b>38</b><span>personas · 27 en terreno</span></div>
+    <div><b>+500</b><span>establecimientos acompañados</span></div>
+    <div><b>15</b><span>regiones</span></div>
+    <div><b>7 · 10 · 13</b><span>SLEP · fundaciones · empresas aliadas</span></div>
+  </div>
+  <div class="meta"><span>Versión <b>1.1</b></span><span>Fecha <b>noviembre 2026</b></span><span>Corte de datos <b>18-nov-2026</b></span><span>Carácter <b>documento de trabajo</b></span></div>
+</header>
+
+<section id="resumen">
+  <h2><span class="n">1</span>Resumen ejecutivo</h2>
+  <div class="exec">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h4>Situación observada en datos públicos</h4>
+      <ol class="tight">
+        <li><b>Escala.</b> Las órdenes de compra del sector público a la Fundación pasaron de $42,5 MM (2020) a $558 MM (2026, año parcial): 70 órdenes de 29 organismos.</li>
+        <li><b>Estacionalidad.</b> El 83% del monto se emite entre febrero y mayo. El material y el acompañamiento se preparan antes.</li>
+        <li><b>Concentración.</b> Los tres mayores compradores suman el 78% del monto 2026. La Fundación vende a 4 de los 39 SLEP que compran material educativo.</li>
+        <li><b>Norma.</b> La Ley 21.634, vigente desde diciembre de 2024, define el trato directo como excepcional. Esa modalidad explica el 83% del monto 2020–2026.</li>
+        <li><b>Organización.</b> 38 personas, 27 de ellas mentoras en regiones, y un área de gestión de 4 personas frente a un volumen creciente.</li>
+      </ol>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h4>Propuesta: un modelo en cuatro capas</h4>
+      <ol class="tight">
+        <li><b>Estrategia y medición.</b> Mapa estratégico con el impacto lector en la cúspide y 15 indicadores con fórmula y meta.</li>
+        <li><b>Planificación.</b> Presupuesto por programa, región y fuente; reproyección mensual; caja a 13 semanas.</li>
+        <li><b>Procesos.</b> Seis macroprocesos con dueño y controles; automatización de conciliaciones, rendiciones y remuneraciones.</li>
+        <li><b>Control y reporte.</b> Control interno COSO con Tres Líneas, apetito de riesgo aprobado por el Directorio y reporte trimestral.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="tw mid"><table>
+    <thead><tr><th style="width:24%">Decisión para el Directorio</th><th>Opción recomendada</th><th style="width:16%">Referencia</th></tr></thead>
+    <tbody>
+      <tr><td>Política de reservas</td><td>Reserva operativa equivalente a 3 meses de gasto fijo, más una línea de capital de trabajo dimensionada para la temporada febrero–mayo.</td><td class="tag">I4 · R3 · M1</td></tr>
+      <tr><td>Umbral de concentración</td><td>Ningún comprador sobre 30% y los tres mayores bajo 60% de las ventas públicas, como meta a tres años.</td><td class="tag">I8 · R1 · M6</td></tr>
+      <tr><td>Apetito de riesgo</td><td>Bajo en cumplimiento normativo, laboral y de liquidez; moderado en crecimiento comercial y territorial.</td><td class="tag">R1–R9 · M6</td></tr>
+      <tr><td>Formato de reporte</td><td>Informe trimestral con tablero de indicadores, estado de actividades por función, flujo de efectivo directo y análisis razonado.</td><td class="tag">I1–I15 · M2</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="diagnostico">
+  <h2><span class="n">2</span>Diagnóstico con información pública</h2>
+  <p>Fuente: órdenes de compra, licitaciones y Compra Ágil publicadas por ChileCompra (datos abiertos), 2020 a noviembre de 2026. Las órdenes de compra muestran ventas comprometidas por el sector público; no equivalen a ingresos devengados ni a caja, y no incluyen donaciones ni alianzas privadas.</p>
+
+  <div class="fig">
+    <h3>C1 · Órdenes de compra a la Fundación por modalidad, MM$</h3>
+    <div class="scroll"><svg id="c1" viewBox="0 0 640 260" role="img" aria-label="Monto anual por modalidad 2020 a 2026"></svg></div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Trato directo</span><span><i style="background:var(--accent-2)"></i>Licitación pública o privada</span><span><i style="background:var(--series-3)"></i>Compra Ágil y otras</span><span>* 2026 parcial, corte 18-nov</span></div>
+    <p class="read">Tasa de crecimiento anual compuesta 2020–2025 de 57%. En 2025 el monto se multiplicó por 2,2 respecto de 2024.</p>
+  </div>
+
+  <div class="figs">
+    <div class="fig">
+      <h3>C2 · Estacionalidad, % del monto 2020–2026 por mes</h3>
+      <svg id="c2" viewBox="0 0 400 230" role="img" aria-label="Distribución mensual del monto"></svg>
+      <p class="read">Febrero a mayo concentra el 83%; marzo y mayo, el 62%.</p>
+    </div>
+    <div class="fig">
+      <h3>C3 · Concentración de compradores, % del monto anual</h3>
+      <svg id="c3" viewBox="0 0 400 230" role="img" aria-label="Participación del primer y de los tres primeros compradores"></svg>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Tres mayores</span><span><i style="background:var(--accent-2)"></i>Mayor comprador</span></div>
+      <p class="read">Índice Herfindahl-Hirschman de 2.517 en 2026, frente a 1.306 en 2024, con 10 y 15 compradores respectivamente.</p>
+    </div>
+  </div>
+
+  <div class="figs">
+    <div class="fig">
+      <h3>C4 · Proveedores de material y servicios educativos a SLEP, 2024–2026, MM$</h3>
+      <svg id="c4" viewBox="0 0 400 300" role="img" aria-label="Ranking de proveedores a SLEP"></svg>
+      <p class="read" id="c4-read">Mercado de $11.248 MM con 790 proveedores. La Fundación ocupa el cuarto lugar (3,7%) y vende a 4 de 39 SLEP compradores.</p>
+    </div>
+    <div class="fig">
+      <h3>C5 · Tipo de comprador, MM$ por año</h3>
+      <svg id="c5" viewBox="0 0 400 300" role="img" aria-label="Monto por tipo de comprador y año"></svg>
+      <div class="legend"><span><i style="background:var(--accent)"></i>SLEP</span><span><i style="background:var(--accent-2)"></i>Corporación municipal</span><span><i style="background:var(--series-3)"></i>Municipalidad</span></div>
+      <p class="read" id="c5-read">Los SLEP pasan de 23% del monto en 2020 a 66% en 2026; las municipalidades, de 77% a menos de 1%. El comprador cambia a medida que avanza el traspaso.</p>
+    </div>
+  </div>
+
+  <h3>Entorno normativo y sectorial</h3>
+  <div class="tw wide"><table>
+    <thead><tr><th style="width:18%">Norma o hito</th><th>Contenido relevante</th><th style="width:28%">Implicancia para la gestión</th></tr></thead>
+    <tbody id="normas">
+      <tr><td>Ley 21.634 y Reglamento (DS 661/2024)</td><td>Vigente desde el 12-dic-2024. Trato directo excepcional (art. 8 bis); haber sido proveedor no basta como causal; sobre 1.000 UTM por proveedor único, publicación de la intención de compra durante 5 días hábiles con informe técnico, abierta a objeciones (Directiva ChileCompra N°10/2025). Principio de valor por dinero (art. 2 bis). Compra Ágil hasta 100 UTM.</td><td>Expediente de venta pública por programa; capacidad de responder licitaciones.</td></tr>
+      <tr><td>Ley 21.131</td><td>Pago del Estado a 30 días corridos desde la recepción de la factura; hasta 60 días si las bases lo fundan. La mora devenga interés y comisión de 1%.</td><td>Base del calendario de cobro y del indicador de días de cobro.</td></tr>
+      <tr><td>Traspaso a SLEP</td><td>36 de 70 SLEP en funcionamiento desde el 1-ene-2026. Calendario de los restantes en revisión (Ley 21.819 y proyecto Boletín 18.551-04, en control del Tribunal Constitucional).</td><td>Cambio de comprador en comunas atendidas; priorización territorial.</td></tr>
+      <tr><td>Ley 21.561</td><td>Jornada de 44 h desde el 26-abr-2024, 42 h desde el 26-abr-2026 y 40 h desde el 26-abr-2028.</td><td>Planificación de dotación y jornada de mentoras para el tramo 2028.</td></tr>
+      <tr><td>Ley 21.643 (Ley Karin)</td><td>Vigente desde el 1-ago-2024. Protocolo de prevención obligatorio para todo empleador (SUSESO, Circular 3813); procedimiento de investigación en el reglamento interno; sin adecuación, investiga la Dirección del Trabajo (Dictamen 362/19).</td><td>Protocolo, procedimiento y reglamento interno al día; registro de capacitación.</td></tr>
+      <tr><td>Ley 19.247, art. 3</td><td>Donaciones con fines educacionales: 50% como crédito contra el impuesto de primera categoría y 50% como gasto. Los receptores son establecimientos y sostenedores definidos en la ley, con proyecto aprobado.</td><td>Estructurar con asesoría tributaria los aportes de empresas que buscan el beneficio.</td></tr>
+      <tr><td>Código Civil, Título XXXIII (Ley 20.500) y FECU Social</td><td>Régimen propio de las fundaciones, distinto del de la empresa comercial. Fiscalización del Ministerio de Justicia (art. 557). Contabilidad según principios de aceptación general; memoria y balance anuales aprobados por el directorio; auditoría externa sobre los umbrales que fija el Ministerio (art. 557-1). Formato FECU Social, recomendado por el Ministerio: estado de actividades y fondos con y sin restricción, sobre base NIIF (NIIF para las PYMES, 3ª edición, rige desde el 1-ene-2027).</td><td>Estados financieros 2027 en formato FECU Social, con fondos restringidos separados; memoria y balance al Ministerio de Justicia.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="riesgos">
+  <h2><span class="n">3</span>Riesgos principales</h2>
+  <p>Riesgos derivados del diagnóstico. Probabilidad (P) e impacto (I) en escala 1 a 5, como propuesta inicial para validar con la Dirección Ejecutiva.</p>
+  <div class="figs">
+    <div class="fig" style="border-top:0;padding-top:0">
+      <svg id="heat" viewBox="0 0 360 330" role="img" aria-label="Mapa de calor de riesgos por probabilidad e impacto"></svg>
+    </div>
+    <div class="tw" style="border-top:2px solid var(--ink)"><table>
+      <thead><tr><th>#</th><th>Riesgo</th><th class="tn">P×I</th><th>Módulo</th></tr></thead>
+      <tbody id="rtab"></tbody>
+    </table></div>
+  </div>
+  <div class="tw mid"><table>
+    <thead><tr><th style="width:6%">#</th><th style="width:34%">Riesgo</th><th>Mitigación propuesta</th></tr></thead>
+    <tbody id="rmit"></tbody>
+  </table></div>
+</section>
+
+<section id="modelo">
+  <h2><span class="n">4</span>Modelo de gestión</h2>
+  <p>Cuadro de mando integral adaptado a una organización con misión social: la perspectiva de impacto ocupa la cúspide y la sostenibilidad financiera es la base que la hace posible <span class="src">(Kaplan &amp; Norton, 1992, 2007; Mackay, 2005)</span>.</p>
+  <div class="fig">
+    <h3>Mapa estratégico propuesto</h3>
+    <div class="smap" id="mapa" role="img" aria-label="Mapa estratégico en cinco niveles"></div>
+  </div>
+
+  <div class="fig">
+    <h3>Calendario anual de gestión</h3>
+    <div class="calw"><div class="cal" id="cal"></div></div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Período crítico</span><span><i style="background:var(--accent-2)"></i>Período activo</span></div>
+  </div>
+
+  <div class="fig">
+    <h3>Control interno: Tres Líneas aplicado a un área de cuatro personas</h3>
+    <div class="lines">
+      <div><b>Primera línea</b><span>Coordinaciones de programa, territorio y gestión. Ejecutan los controles en el proceso: quien solicita no aprueba, quien registra no paga.</span></div>
+      <div><b>Segunda línea</b><span>Dirección de Finanzas y Gestión Organizacional. Define políticas, mantiene la matriz de riesgos y controles, monitorea indicadores y cumplimiento.</span></div>
+      <div><b>Tercera línea</b><span>Auditoría externa y Directorio (o comité). Aseguramiento independiente sobre estados financieros y control interno.</span></div>
+    </div>
+    <p class="cap">Marco COSO 2013: 5 componentes y 17 principios; modelo de Tres Líneas del IIA (2020); escala de madurez de 4 niveles <span class="src">(IFC, 2021)</span>.</p>
+  </div>
+</section>
+
+<section id="frentes">
+  <h2><span class="n">5</span>Los seis frentes del cargo</h2>
+  <p>Un módulo por función de la descripción del cargo. Cada uno indica la situación observada, los instrumentos propuestos con su fuente, los entregables de los primeros 90 días y los indicadores (I) y riesgos (R) asociados.</p>
+  <div id="mods" style="display:flex;flex-direction:column;gap:40px"></div>
+</section>
+
+<section id="tablero">
+  <h2><span class="n">6</span>Tablero de indicadores</h2>
+  <p>Quince indicadores agrupados por perspectiva. Metas propuestas, a validar con información interna. El valor observado se informa solo cuando es calculable con datos públicos.</p>
+  <div class="tw wide"><table>
+    <thead><tr><th>#</th><th style="width:17%">Indicador</th><th style="width:24%">Fórmula</th><th>Unidad</th><th>Meta</th><th>Observado</th><th>Frecuencia</th><th style="width:17%">Decisión que gatilla</th></tr></thead>
+    <tbody id="kpi"></tbody>
+  </table></div>
+  <p class="cap"><span class="dot" style="background:var(--hi)"></span>fuera de meta · <span class="dot" style="background:var(--accent)"></span>informativo, sin meta aún · "Interno": requiere contabilidad o registros de la Fundación.</p>
+</section>
+
+<section id="ruta">
+  <h2><span class="n">7</span>Hoja de ruta 2027</h2>
+  <p>Secuencia anclada al año escolar: preparar la temporada antes de marzo, ordenar durante el cierre de la temporada y proyectar el año siguiente en el segundo semestre.</p>
+  <div class="fig" style="overflow-x:auto">
+    <svg id="gantt" viewBox="0 0 760 330" role="img" aria-label="Carta Gantt 2027 por frente de trabajo" style="min-width:620px"></svg>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Primeros 90 días</span><span><i style="background:var(--accent-2)"></i>Resto del año</span><span>◆ Hito ante el Directorio</span><span><i style="background:var(--panel);border:1px solid var(--rule-strong)"></i>Temporada de compras públicas</span></div>
+  </div>
+</section>
+
+<section id="fuentes">
+  <h2><span class="n">8</span>Fuentes, método y supuestos</h2>
+  <div class="mgrid">
+    <div class="k">Datos</div>
+    <div>Órdenes de compra, licitaciones y Compra Ágil de ChileCompra (datos abiertos), 2020 a noviembre de 2026, procesados en una base analítica propia. Proveedor identificado por RUT 65.044.442-6. Montos en pesos nominales. "SLEP" identifica organismos compradores cuyo nombre contiene "Servicio Local"; un SLEP puede registrar más de un código de organismo, por lo que el conteo de compradores (39 en 2024–2026) puede superar a los SLEP en funcionamiento (36). El ranking C4 considera los rubros UNSPSC 8614 (servicios educativos), 6010 (materiales didácticos) y 5510 (publicaciones impresas).</div>
+    <div class="k">Supuestos</div>
+    <div>Las metas del tablero y las calificaciones de riesgo son propuestas iniciales. El escenario de caja es ilustrativo: no usa información contable de la Fundación. La importación de materiales se considera según la descripción del cargo.</div>
+    <div class="k">Referencias</div>
+    <div><ul class="refs" id="refs"></ul></div>
+  </div>
+</section>
+
+<footer>
+  <div>Elaborado por Eduardo Corvalán Faray · Noviembre 2026</div>
+  <div>Documento de trabajo preparado con información pública. Las cifras de órdenes de compra no representan la contabilidad de la Fundación.</div>
+</footer>
+</main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a){if(k==="style")e.setAttribute("style",a[k]);else e.setAttribute(k,a[k])}if(txt!==undefined)e.textContent=txt;if(p)p.appendChild(e);return e}
+const fmt1=v=>v.toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:1});
+const fmt0=v=>Math.round(v).toLocaleString("es-CL");
+const MES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+/* ===== DATOS ===== */
+const ANUAL=[[2020,42.5,0,0],[2021,58.2,0,0],[2022,62.0,14.5,0.02],[2023,124.3,23.0,0.2],[2024,149.7,31.4,2.5],[2025,283.5,103.9,18.8],[2026,502.3,41.8,14.3]];
+const ESTAC=[2.0,9.1,31.5,11.8,30.5,11.7,0.6,0.6,0.6,0.6,0.5,0.5];
+const CONC=[[2023,42.2,71.6],[2024,21.2,51.9],[2025,37.9,74.6],[2026,39.0,78.2]];
+let RANK=[["Importadora Hevia",1045.7],["Asist. y Gestión Int.",714.2],["Payelec",521.4],["Crecer con Todos",411.5],["Chileclick",376.6],["Ziemax Ediciones",360.4],["Genios y Lúdicos",337.7],["Exportadora RB",252.4],["Paola González B.",233.8],["Santillana",232.7]];
+let MIX=[[2020,9.8,0,32.7,0],[2021,23.3,0,34.9,0],[2022,12.7,0,63.8,0],[2023,16.5,85.3,45.7,0],[2024,63.8,58.6,61.2,0],[2025,192.7,165.4,48.1,0],[2026,368.8,186.4,3.2,0]]; // [año, SLEP, Corporación municipal, Municipalidad, Otro] MM$
+
+/* ===== C1 ===== */
+(function(){const s=document.getElementById("c1");const W=640,H=260,L=44,R=8,T=18,B=26,max=600;
+ [0,150,300,450,600].forEach(v=>{const y=T+(H-T-B)*(1-v/max);el("line",{x1:L,x2:W-R,y1:y,y2:y,style:"stroke:var(--rule)"},s);el("text",{x:L-6,y:y+4,"text-anchor":"end"},s,v)});
+ const bw=(W-L-R)/ANUAL.length,cols=["var(--accent)","var(--accent-2)","var(--series-3)"];
+ ANUAL.forEach((d,i)=>{let y0=H-B;const x=L+i*bw+bw*.2,w=bw*.6;[d[1],d[2],d[3]].forEach((v,j)=>{const h=(H-T-B)*v/max;if(h>.3){el("rect",{x,y:y0-h,width:w,height:h,style:"fill:"+cols[j]},s);y0-=h}});
+  el("text",{x:x+w/2,y:y0-6,"text-anchor":"middle",class:"lbl"},s,fmt1(d[1]+d[2]+d[3]));el("text",{x:x+w/2,y:H-B+16,"text-anchor":"middle"},s,d[0]+(d[0]===2026?"*":""))});
+})();
+/* ===== C2 ===== */
+(function(){const s=document.getElementById("c2");const W=400,H=230,L=30,R=6,T=16,B=24,max=42;const bw=(W-L-R)/12;
+ el("rect",{x:L+bw*1,y:T-6,width:bw*4,height:H-T-B+6,style:"fill:var(--panel)"},s);el("text",{x:L+bw*3,y:T+4,"text-anchor":"middle"},s,"feb–may: 83%");
+ [0,10,20,30].forEach(v=>{const y=T+(H-T-B)*(1-v/max);el("line",{x1:L,x2:W-R,y1:y,y2:y,style:"stroke:var(--rule)"},s);el("text",{x:L-5,y:y+4,"text-anchor":"end"},s,v)});
+ ESTAC.forEach((v,m)=>{const h=(H-T-B)*v/max,x=L+m*bw+bw*.18,w=bw*.64;el("rect",{x,y:H-B-h,width:w,height:Math.max(h,.5),style:"fill:"+(m>=1&&m<=4?"var(--accent)":"var(--series-3)")},s);if(v>=5)el("text",{x:x+w/2,y:H-B-h-4,"text-anchor":"middle",class:"lbl"},s,fmt1(v));el("text",{x:x+w/2,y:H-B+15,"text-anchor":"middle"},s,MES[m][0])});
+})();
+/* ===== C3 ===== */
+(function(){const s=document.getElementById("c3");const W=400,H=230,L=30,R=56,T=18,B=24;const x=i=>L+28+(W-L-R-56)*i/(CONC.length-1),y=v=>T+(H-T-B)*(1-v/100);
+ [0,25,50,75,100].forEach(v=>{el("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),style:"stroke:var(--rule)"},s);el("text",{x:L-5,y:y(v)+4,"text-anchor":"end"},s,v)});
+ el("line",{x1:L,x2:W-R,y1:y(60),y2:y(60),style:"stroke:var(--hi);stroke-dasharray:4 3"},s);el("text",{x:W-R+4,y:y(60)+4},s,"meta 60");
+ [[2,"var(--accent)"],[1,"var(--accent-2)"]].forEach(([k,c])=>{el("polyline",{points:CONC.map((d,i)=>x(i)+","+y(d[k])).join(" "),style:"fill:none;stroke:"+c+";stroke-width:2.5"},s);CONC.forEach((d,i)=>{el("circle",{cx:x(i),cy:y(d[k]),r:3.5,style:"fill:"+c},s);el("text",{x:x(i),y:y(d[k])-8,"text-anchor":"middle",class:"lbl"},s,fmt0(d[k]))})});
+ CONC.forEach((d,i)=>el("text",{x:x(i),y:H-B+16,"text-anchor":"middle"},s,d[0]+(d[0]===2026?"*":"")));
+})();
+/* ===== C4 ===== */
+function drawC4(){const s=document.getElementById("c4");s.innerHTML="";const W=400,L=168,R=40,T=6,rh=27;const H=T+RANK.length*rh+8;s.setAttribute("viewBox","0 0 "+W+" "+H);const max=Math.max(...RANK.map(r=>r[1]));
+ RANK.forEach((r,i)=>{const y=T+i*rh,w=(W-L-R)*r[1]/max,me=/Crecer/.test(r[0]);el("text",{x:L-8,y:y+rh/2+4,"text-anchor":"end",class:me?"hl":"lbl"},s,r[0]);el("rect",{x:L,y:y+5,width:w,height:rh-10,style:"fill:"+(me?"var(--accent)":"var(--series-3)")},s);el("text",{x:L+w+5,y:y+rh/2+4,class:me?"hl":""},s,fmt0(r[1]))});}
+drawC4();
+/* ===== C5 ===== */
+function drawC5(){const s=document.getElementById("c5");s.innerHTML="";if(!MIX){el("text",{x:200,y:150,"text-anchor":"middle"},s,"Cargando");return}
+ const W=400,H=300,L=36,R=6,T=16,B=24;const tot=MIX.map(d=>d[1]+d[2]+d[3]+d[4]);const max=Math.ceil(Math.max(...tot)/100)*100;
+ for(let v=0;v<=max;v+=max/4){const y=T+(H-T-B)*(1-v/max);el("line",{x1:L,x2:W-R,y1:y,y2:y,style:"stroke:var(--rule)"},s);el("text",{x:L-5,y:y+4,"text-anchor":"end"},s,fmt0(v))}
+ const bw=(W-L-R)/MIX.length,cols=["var(--accent)","var(--accent-2)","var(--series-3)","var(--rule-strong)"];
+ MIX.forEach((d,i)=>{let y0=H-B;const x=L+i*bw+bw*.2,w=bw*.6;[d[1],d[2],d[3],d[4]].forEach((v,j)=>{const h=(H-T-B)*v/max;if(h>.3){el("rect",{x,y:y0-h,width:w,height:h,style:"fill:"+cols[j]},s);y0-=h}});el("text",{x:x+w/2,y:H-B+15,"text-anchor":"middle"},s,String(d[0]).slice(2)+(d[0]===2026?"*":""))});}
+drawC5();
+
+/* ===== RIESGOS ===== */
+const RISK=[
+ ["R1","Concentración de ventas en pocos compradores",4,5,"M6","Meta de nuevos SLEP por año y umbral de concentración en la declaración de apetito de riesgo."],
+ ["R2","Restricción o impugnación de contrataciones directas",3,5,"M4","Expediente de valor por dinero por programa y capacidad instalada para responder licitaciones."],
+ ["R3","Tensión de caja por estacionalidad",4,4,"M1","Flujo de caja a 13 semanas, reserva operativa y línea de capital de trabajo preaprobada."],
+ ["R4","Atraso de producción o importación antes de marzo",3,4,"M4","Programación hacia atrás desde la fecha de entrega y stock de seguridad por programa."],
+ ["R5","Variación del tipo de cambio en compras externas",3,3,"M4","Política de compra anticipada de divisas y medición de exposición."],
+ ["R6","Término de una fuente de financiamiento relevante",3,4,"M6","Reserva operativa, mezcla de ingresos y calendario de renovación anticipada con aliados."],
+ ["R7","Incumplimiento laboral o denuncia mal gestionada",2,4,"M5","Matriz de cumplimiento, protocolo y procedimiento Ley 21.643, reglamento interno actualizado."],
+ ["R8","Rotación de mentoras en terreno",3,3,"M5","Ruta de progresión, inducción estándar y medición de compromiso."],
+ ["R9","Capacidad administrativa menor que el crecimiento",4,3,"M3","Mapa de procesos, automatización y segregación de funciones."]];
+(function(){const s=document.getElementById("heat");const L=46,T=10,cs=58;
+ for(let p=1;p<=5;p++)for(let i=1;i<=5;i++){const sc=p*i,c=sc>=15?"var(--hi-soft)":sc>=8?"var(--mid-soft)":"var(--lo-soft)";el("rect",{x:L+(i-1)*cs,y:T+(5-p)*cs,width:cs-2,height:cs-2,style:"fill:"+c},s)}
+ for(let k=1;k<=5;k++){el("text",{x:L+(k-1)*cs+cs/2,y:T+5*cs+14,"text-anchor":"middle"},s,k);el("text",{x:L-10,y:T+(5-k)*cs+cs/2+4,"text-anchor":"end"},s,k)}
+ el("text",{x:L+2.5*cs,y:T+5*cs+30,"text-anchor":"middle",class:"lbl"},s,"Impacto");
+ const ty=el("text",{x:12,y:T+2.5*cs,"text-anchor":"middle",class:"lbl",transform:"rotate(-90 12 "+(T+2.5*cs)+")"},s,"Probabilidad");
+ const cell={};RISK.forEach(r=>{const k=r[2]+"-"+r[3];cell[k]=(cell[k]||[]);cell[k].push(r[0])});
+ Object.entries(cell).forEach(([k,ids])=>{const[p,i]=k.split("-").map(Number);const cx=L+(i-1)*cs+cs/2,cy=T+(5-p)*cs+cs/2;ids.forEach((id,j)=>{const oy=(j-(ids.length-1)/2)*16;el("text",{x:cx,y:cy+oy+4,"text-anchor":"middle",class:"lbl",style:"font-weight:500"},s,id)})});
+ const tb=document.getElementById("rtab"),tm=document.getElementById("rmit");
+ RISK.slice().sort((a,b)=>b[2]*b[3]-a[2]*a[3]).forEach(r=>{const sc=r[2]*r[3],c=sc>=15?"var(--hi)":sc>=8?"var(--mid)":"var(--lo)";tb.insertAdjacentHTML("beforeend",`<tr><td class="tag">${r[0]}</td><td>${r[1]}</td><td class="n"><span class="dot" style="background:${c}"></span>${sc}</td><td class="tag">${r[4]}</td></tr>`)});
+ RISK.forEach(r=>tm.insertAdjacentHTML("beforeend",`<tr><td class="tag">${r[0]}</td><td>${r[1]}</td><td>${r[5]}</td></tr>`));
+})();
+
+/* ===== MAPA ESTRATÉGICO ===== */
+(function(){const s=document.getElementById("mapa");
+ const rows=[
+  ["Impacto",["Niños y niñas que leen y escriben comprensivamente desde 1° básico"]],
+  ["Comunidades y financistas",["SLEP y sostenedores que renuevan y amplían la cobertura","Aliados que financian con confianza y rendición oportuna"]],
+  ["Procesos internos",["Material y acompañamiento a tiempo","Ventas públicas con expediente sólido","Cierre y reporte oportunos"]],
+  ["Personas y sistemas",["Mentoras con progresión y soporte","Sistemas integrados y datos confiables"]],
+  ["Sostenibilidad financiera",["Reserva operativa · mezcla de ingresos · costo por estudiante conocido"]]];
+ s.innerHTML=rows.map((r,i)=>`<div class="row${i===0?" top":""}"><b>${r[0]}</b><div class="objs">${r[1].map(t=>`<div class="obj">${t}</div>`).join("")}</div></div>`).join("");
+})();
+
+/* ===== CALENDARIO ===== */
+(function(){const c=document.getElementById("cal");const rows=[
+ ["Emisión de órdenes de compra públicas",[0,1,2,1,2,1,0,0,0,0,0,0]],
+ ["Producción, importación y despacho",[2,1,0,0,0,0,0,1,1,1,1,2]],
+ ["Entrega a establecimientos",[0,2,2,1,0,0,0,0,0,0,0,0]],
+ ["Facturación y cobranza",[0,1,2,2,2,1,1,0,0,0,0,0]],
+ ["Reproyección de presupuesto y caja",[1,1,1,1,1,1,1,1,1,1,1,1]],
+ ["Presupuesto del año siguiente",[0,0,0,0,0,0,0,0,1,2,2,2]],
+ ["Cierre anual y auditoría",[1,2,2,1,0,0,0,0,0,0,0,0]],
+ ["Sesión de Directorio (trimestral)",[0,0,2,0,0,2,0,0,2,0,0,2]]];
+ c.insertAdjacentHTML("beforeend",'<div class="h"></div>'+MES.map(m=>`<div class="h">${m}</div>`).join(""));
+ rows.forEach(r=>{c.insertAdjacentHTML("beforeend",`<div class="r">${r[0]}</div>`+r[1].map(v=>`<div class="c ${v===2?"c2":v===1?"c1":""}"></div>`).join(""))});
+})();
+
+/* ===== MÓDULOS ===== */
+const MODS=[
+ {id:"m1",code:"M1",t:"Planificación financiera, control presupuestario y flujo de caja",
+  sit:"Ventas públicas multiplicadas por 13 en seis años, con el 83% del monto emitido entre febrero y mayo. Ingresos públicos y privados con calendarios y destinos distintos.",
+  ins:[["Presupuesto por programa, región y fuente de financiamiento, separando fondos con destino específico (convenios y donaciones) de fondos de libre disposición.","FECU Social: fondos con y sin restricción"],
+       ["Presupuesto rodante a 12 meses, reproyectado cada mes, y estados pro forma construidos desde el pronóstico de ventas.","OpenStax 2022, cap. 18"],
+       ["Flujo de caja directo a 13 semanas, con calendario de cobro según la Ley 21.131 (30 días desde la recepción de la factura).","FECU Social; Ley 21.131"],
+       ["Política de reserva operativa y línea de capital de trabajo dimensionadas con el escenario estacional de esta sección.","OpenStax 2022, cap. 6"],
+       ["Ciclo de conversión de caja: días de inventario + días de cobro − días de pago.","OpenStax 2022, cap. 6"]],
+  ent:["Flujo de caja a 13 semanas operando con actualización semanal.","Presupuesto 2027 por programa, región y fuente.","Propuesta de política de reservas para el Directorio."],
+  kpi:"I3 · I4 · I5 · I6 · I12 · I13",risk:"R3 · R6",sim:true},
+ {id:"m2",code:"M2",t:"Análisis e indicadores para la toma de decisiones",
+  sit:"La Fundación mide su impacto pedagógico con evaluaciones propias y externas. El paso siguiente es conectar esa evidencia con el costo y la gestión.",
+  ins:[["Cadena de resultados insumo, actividad, producto y resultado, con indicadores de eficacia, eficiencia, economía y calidad.","Armijo, CEPAL 2011; Vega 2022"],
+       ["Análisis costo-efectividad por programa e intensidad de intervención (Primero LEE+ y Viaje por las Letras+).","Gertler et al. 2011, cap. 9"],
+       ["Diccionario de indicadores con fórmula, fuente, responsable, línea base y frecuencia; pocas medidas, revisadas cada mes.","Vega 2022; Mackay 2005"],
+       ["Informe de gestión con estado de actividades por función, flujo de efectivo directo y análisis razonado.","FECU Social"],
+       ["Mapa estratégico con la perspectiva de impacto en la cúspide (sección 4).","Kaplan &amp; Norton 2007; Mackay 2005"]],
+  ent:["Diccionario de indicadores aprobado.","Tablero v1 con línea base (sección 6).","Primer cálculo de costo por estudiante y por establecimiento."],
+  kpi:"I1 · I2 · I6",risk:"R9"},
+ {id:"m3",code:"M3",t:"Mejora continua y automatización de procesos administrativos y financieros",
+  sit:"Más contratos y más compradores públicos, cada uno con exigencias documentales propias, sostenidos por un área de gestión de cuatro personas.",
+  ins:[["Mapa de seis macroprocesos con dueño, controles y plazos (tabla siguiente).","Catálogo de procedimientos de administración y finanzas"],
+       ["Priorización por volumen y riesgo; mejora con DMAIC en dos procesos piloto.","Kaizen Institute 2024"],
+       ["Automatización de la conciliación orden de compra, recepción, factura y pago; conciliación bancaria; rendición digital de fondos por rendir de mentoras; cálculo y centralización de remuneraciones.","Gartner 2025"],
+       ["Sistema contable y presupuestario integrado: los sistemas no integrados son una causa frecuente de información tardía.","OCDE 2024"],
+       ["Calendario de cierre mensual con fecha fija.",""]],
+  ent:["Mapa de procesos con dueño por proceso.","Dos pilotos con línea base: conciliación bancaria y fondos por rendir.","Cierre mensual calendarizado."],
+  kpi:"I5 · I12",risk:"R9",proc:true},
+ {id:"m4",code:"M4",t:"Abastecimiento, compras, importación de materiales y logística nacional",
+  sit:"Material para más de 500 establecimientos en 15 regiones, que debe llegar antes del inicio de clases. Las órdenes de compra públicas se concentran entre marzo y mayo, después del momento de producir.",
+  ins:[["Plan anual de compras e importación programado hacia atrás desde la fecha de entrega: producción, tránsito, aduana y distribución.",""],
+       ["Costo puesto en bodega por unidad: FOB + flete + seguro + derechos e IVA de importación + agente de aduanas + transporte interno. Base de precio y margen por programa.",""],
+       ["Exposición cambiaria: compra anticipada de divisas, medición de exposición y tratamiento contable en moneda extranjera.","Valenzuela s.f. (VaR); NIIF PYMES Secc. 30"],
+       ["Inventario valorizado por programa, rotación, stock de seguridad e inventario físico anual en vacaciones de invierno.",""],
+       ["Expediente de venta pública por programa: valor por dinero, especialidad y antecedentes que respaldan al comprador.","Ley 21.634, arts. 2 bis y 8 bis"],
+       ["Indicadores de abastecimiento: ahorro frente a precio histórico, costo del proceso y procesos fallidos.","OCDE 2014"]],
+  ent:["Calendario de abastecimiento 2027–2028.","Inventario valorizado y conciliado con contabilidad.","Expediente tipo por programa."],
+  kpi:"I13 · I14",risk:"R2 · R4 · R5"},
+ {id:"m5",code:"M5",t:"Gestión de personas, remuneraciones y cumplimiento laboral",
+  sit:"38 personas: 11 en el equipo central y 27 mentoras en terreno en varias regiones. Jornada legal en reducción gradual y nuevas obligaciones de prevención del acoso.",
+  ins:[["Diseño organizacional: transición desde una estructura simple a una organización profesional coordinada por estandarización de habilidades; alineación de estrategia, estructura, procesos, recompensas y personas; matriz RACI con un responsable por decisión.","Mintzberg 1983; Galbraith en Jurevicius 2025"],
+       ["Equipos territoriales con autonomía y soporte central liviano. Referencia: equipos de hasta 12 personas y gastos generales de 8% en Buurtzorg.","Martela &amp; Nandram 2024"],
+       ["Ciclo de personas estandarizado: ingreso, inducción, remuneraciones, licencias médicas y recupero de subsidios, capacitación y egreso.","Catálogo de procedimientos de administración y finanzas"],
+       ["Matriz de cumplimiento laboral: jornada (Ley 21.561), prevención del acoso (Ley 21.643), reglamento interno, cotizaciones y contratos.","BCN; Dirección del Trabajo"],
+       ["Ruta de progresión y medición de compromiso: la falta de progresión explica el 51% de las intenciones de salida en la región.","Hays 2025"]],
+  ent:["Autodiagnóstico de cumplimiento laboral.","Remuneraciones con doble revisión y recupero de subsidios al día.","Línea base de rotación por segmento."],
+  kpi:"I15",risk:"R7 · R8"},
+ {id:"m6",code:"M6",t:"Apoyo a la Dirección Ejecutiva y al Directorio",
+  sit:"Decisiones de crecimiento con compradores públicos de mayor tamaño, un cambio en la ley de compras y el traspaso gradual de la educación pública a los SLEP hasta 2030.",
+  ins:[["Escenarios base, adverso y de expansión, con estados pro forma 2027–2029 y análisis de sensibilidad.","OpenStax 2022"],
+       ["Declaración de apetito de riesgo aprobada por el Directorio y matriz de riesgos revisada cada trimestre.","HM Treasury 2023"],
+       ["Control interno COSO 2013 con Tres Líneas y autoevaluación de madurez.","IFC 2021; IIA 2020"],
+       ["Calendario de gobierno: informe mensual a la Dirección Ejecutiva; trimestral al Directorio; anual con presupuesto, estados financieros auditados y FECU Social.","Comunidad de Organizaciones Solidarias"],
+       ["Análisis de mercado por SLEP y calendario de traspasos para priorizar territorios (gráficos C4 y C5).","ChileCompra, datos abiertos"]],
+  ent:["Escenarios presentados al Directorio.","Propuesta de declaración de apetito de riesgo.","Formato de informe trimestral."],
+  kpi:"I7 · I8 · I9 · I10 · I11",risk:"R1 · R2 · R6"}];
+const PROC=[
+ ["Planificación y presupuesto","Anteproyecto de presupuesto · distribución por programa · reproyección mensual · control de ejecución"],
+ ["Ingresos y cobranza","Oferta y expediente de venta pública · facturación por orden de compra · cobranza y conciliación de pagos · rendición a donantes"],
+ ["Abastecimiento y pagos","Plan anual de compras e importación · contratos y garantías · recepción e inventario · pago a proveedores"],
+ ["Tesorería y contabilidad","Conciliaciones bancarias · fondos por rendir · análisis de cuentas · cierre mensual y estados financieros"],
+ ["Personas","Ingreso e inducción · remuneraciones · licencias médicas y recupero de subsidios · capacitación · egreso · denuncias Ley 21.643"],
+ ["Control y cumplimiento","Control de documentos y registros · acciones correctivas · matriz de riesgos · seguimiento de observaciones de auditoría"]];
+const box=document.getElementById("mods");
+MODS.forEach(m=>{const a=document.createElement("article");a.className="mod";a.id=m.id;
+ let h=`<header><span class="code">${m.code} · Función ${m.code.slice(1)} de la descripción del cargo</span><h3>${m.t}</h3></header><div class="mgrid">
+ <div class="k">Situación observada</div><div>${m.sit}</div>
+ <div class="k">Instrumentos</div><div><ul>${m.ins.map(i=>`<li>${i[0]}${i[1]?` <span class="src">${i[1]}</span>`:""}</li>`).join("")}</ul></div>
+ <div class="k">Entregables 90 días</div><div><ul>${m.ent.map(e=>`<li>${e}</li>`).join("")}</ul></div>
+ <div class="k">Indicadores · riesgos</div><div class="tag">${m.kpi} &nbsp;·&nbsp; ${m.risk}</div></div>`;
+ a.innerHTML=h;
+ if(m.proc){a.insertAdjacentHTML("beforeend",`<div class="tw mid"><table><thead><tr><th style="width:26%">Macroproceso</th><th>Procedimientos</th></tr></thead><tbody>${PROC.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td></tr>`).join("")}</tbody></table></div>`)}
+ if(m.sim){a.insertAdjacentHTML("beforeend",document.getElementById("tpl-sim").innerHTML)}
+ box.appendChild(a)});
+
+/* ===== SIMULADOR ===== */
+(function(){const S={base:{ing:600,pago:45,ant:30},cons:{ing:480,pago:75,ant:40},exp:{ing:850,pago:45,ant:35}};
+ const ri=document.getElementById("r-ing"),rp=document.getElementById("r-pago"),ra=document.getElementById("r-ant");
+ function set(k){ri.value=S[k].ing;rp.value=S[k].pago;ra.value=S[k].ant;document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.s===k)));calc()}
+ const f=v=>(v<0?"−$":"$")+fmt0(Math.abs(v))+" MM";
+ function calc(){const ing=+ri.value,pago=+rp.value,ant=+ra.value/100;
+  document.getElementById("o-ing").textContent="$"+fmt0(ing)+" MM";document.getElementById("o-pago").textContent=pago+" días";document.getElementById("o-ant").textContent=Math.round(ant*100)+"%";
+  const tot=ESTAC.reduce((a,b)=>a+b,0),directo=ing*.55,fijo=ing*.40/12,lag=pago/30;
+  const cob=new Array(12).fill(0);ESTAC.forEach((p,m)=>{const v=ing*p/tot,t=m+lag,m0=Math.floor(t),fr=t-m0;if(m0<12)cob[m0]+=v*(1-fr);if(m0+1<12)cob[m0+1]+=v*fr});
+  const cos=new Array(12).fill(0);cos[0]+=directo*ant*.5;cos[1]+=directo*ant*.5;ESTAC.forEach((p,m)=>{cos[m]+=directo*(1-ant)*p/tot});
+  let sal=0,min=0,mm=0;const ser=[];for(let m=0;m<12;m++){sal+=cob[m]-cos[m]-fijo;ser.push(sal);if(sal<min){min=sal;mm=m}}
+  document.getElementById("k-min").textContent=f(min);document.getElementById("k-mes").textContent=MES[mm];document.getElementById("k-lin").textContent=f(Math.max(0,-min)*1.2);
+  const s=document.getElementById("csim");s.innerHTML="";const W=640,H=210,L=46,R=8,T=12,B=24;const lo=Math.min(-50,...ser),hi=Math.max(50,...ser),y=v=>T+(H-T-B)*(hi-v)/(hi-lo);
+  [hi,0,lo].forEach(v=>{el("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),style:"stroke:var(--rule)"+(v===0?";stroke:var(--muted);stroke-dasharray:3 3":"")},s);el("text",{x:L-6,y:y(v)+4,"text-anchor":"end"},s,fmt0(v))});
+  const bw=(W-L-R)/12;ser.forEach((v,m)=>{const x=L+m*bw+bw*.2,w=bw*.6;el("rect",{class:"bar",x,y:y(Math.max(v,0)),width:w,height:Math.max(Math.abs(y(v)-y(0)),1),style:"fill:"+(v<0?"var(--hi)":"var(--accent)")},s);el("text",{x:x+w/2,y:H-6,"text-anchor":"middle"},s,MES[m])});}
+ [ri,rp,ra].forEach(i=>i.addEventListener("input",()=>{document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed","false"));calc()}));
+ document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>set(b.dataset.s)));set("base");
+})();
+
+/* ===== TABLERO ===== */
+const KPI=[
+ ["Impacto"],
+ ["I1","Costo por estudiante atendido","Gasto total del programa / estudiantes atendidos","$","Línea base 2027","Interno","Anual","Precio, priorización y conversación con aliados",null],
+ ["I2","Gasto en programas sobre gasto total","Gasto de programas / gasto total","%","≥ 75","Interno","Trimestral","Tope de gasto de administración",null],
+ ["Sostenibilidad financiera"],
+ ["I3","Ejecución presupuestaria","Gasto real acumulado / presupuesto acumulado","%","95 a 105","Interno","Mensual","Reproyección y reasignación",null],
+ ["I4","Meses de reserva operativa","(Caja + inversiones líquidas) / gasto fijo mensual promedio","meses","≥ 3","Interno","Mensual","Uso de línea de crédito o ajuste de gasto",null],
+ ["I5","Desviación del flujo de caja proyectado","|Flujo real − flujo proyectado| / flujo proyectado","%","≤ 10","Interno","Semanal","Reprogramación de pagos",null],
+ ["I6","Margen de contribución por programa","(Ingresos del programa − costos directos) / ingresos del programa","%","Línea base 2027","Interno","Trimestral","Precio y mezcla de programas",null],
+ ["Comunidades y financistas"],
+ ["I7","Crecimiento de ventas al sector público","Ventas año t / ventas año t−1 − 1","%","Según presupuesto","+121 (2025) · TCAC 57","Anual","Capacidad operativa y dotación","i"],
+ ["I8","Concentración en los tres mayores compradores","Ventas a los 3 mayores / ventas públicas totales","%","≤ 60","78 (2026)","Trimestral","Plan comercial territorial","r"],
+ ["I9","Participación en compras educativas de SLEP","Ventas a SLEP / compras SLEP en el rubro","%","Por definir","3,7 (2024–26)","Semestral","Foco territorial","i"],
+ ["I10","Cobertura de SLEP","SLEP clientes / SLEP que compran en el rubro","%","Por definir","10 (4 de 39)","Semestral","Cartera objetivo","i"],
+ ["I11","Dependencia de la fuente principal de ingresos","Ingresos de la mayor fuente / ingresos totales","%","≤ 50","Interno","Trimestral","Captación y renovación de fondos",null],
+ ["Procesos internos"],
+ ["I12","Días de cobro","Cuentas por cobrar / ventas del período × días del período","días","≤ 30","Interno","Mensual","Gestión de cobranza por comprador",null],
+ ["I13","Ciclo de conversión de caja","Días de inventario + días de cobro − días de pago","días","Bajo línea base","Interno","Trimestral","Fecha de importación y condiciones de pago",null],
+ ["I14","Entregas a tiempo y completas (OTIF)","Entregas completas en fecha / entregas comprometidas","%","≥ 95","Interno","Semanal en feb–may","Escalamiento logístico",null],
+ ["Personas y sistemas"],
+ ["I15","Rotación voluntaria","Egresos voluntarios / dotación promedio del período","%","Por segmento","Interno","Trimestral","Plan de progresión y retención",null]];
+const kb=document.getElementById("kpi");
+KPI.forEach(r=>{if(r.length===1){kb.insertAdjacentHTML("beforeend",`<tr class="grp"><td colspan="8">${r[0]}</td></tr>`);return}
+ const dot=r[8]==="r"?'<span class="dot" style="background:var(--hi)"></span>':r[8]==="i"?'<span class="dot" style="background:var(--accent)"></span>':"";
+ kb.insertAdjacentHTML("beforeend",`<tr><td class="tag">${r[0]}</td><td>${r[1]}</td><td><code>${r[2]}</code></td><td>${r[3]}</td><td class="n">${r[4]}</td><td class="n">${dot}${r[5]}</td><td>${r[6]}</td><td>${r[7]}</td></tr>`)});
+
+/* ===== GANTT ===== */
+(function(){const s=document.getElementById("gantt");const W=760,L=200,R=8,T=26,rh=34;const cw=(W-L-R)/12;
+ const G=[
+  ["Caja y tesorería",[[0,1,1],[1,12,0]],[]],
+  ["Presupuesto y escenarios",[[0,3,1],[7,12,0]],[[2,"Escenarios"],[11,"Presupuesto 2028"]]],
+  ["Indicadores e informe",[[0,3,1],[3,12,0]],[[2,"Tablero v1"]]],
+  ["Procesos y automatización",[[1,3,1],[3,9,0]],[]],
+  ["Abastecimiento e importación",[[0,2,1],[7,12,0]],[]],
+  ["Personas y cumplimiento",[[1,3,1],[5,7,0]],[]],
+  ["Riesgos y control interno",[[1,3,1],[5,6,0],[8,9,0]],[[2,"Apetito de riesgo"],[5,"Matriz"],[8,"COSO"]]],
+  ["Costeo por programa",[[5,7,0]],[]]];
+ el("rect",{x:L+cw*1,y:T-6,width:cw*4,height:G.length*rh+6,style:"fill:var(--panel)"},s);
+ MES.forEach((m,i)=>{el("text",{x:L+i*cw+cw/2,y:T-10,"text-anchor":"middle"},s,m);el("line",{x1:L+i*cw,x2:L+i*cw,y1:T-4,y2:T+G.length*rh,style:"stroke:var(--rule)"},s)});
+ G.forEach((g,i)=>{const y=T+i*rh;el("text",{x:L-10,y:y+rh/2+4,"text-anchor":"end",class:"lbl",style:"font-family:var(--f-body);font-size:12px"},s,g[0]);el("line",{x1:0,x2:W,y1:y+rh,y2:y+rh,style:"stroke:var(--rule)"},s);
+  g[1].forEach(b=>el("rect",{x:L+b[0]*cw+2,y:y+10,width:(b[1]-b[0])*cw-4,height:rh-20,style:"fill:"+(b[2]?"var(--accent)":"var(--accent-2)")},s));
+  g[2].forEach(h=>{const x=L+h[0]*cw+cw-6;el("path",{d:`M${x} ${y+5} l5 5 l-5 5 l-5 -5z`,style:"fill:var(--ink)"},s)})});
+})();
+
+/* ===== REFERENCIAS ===== */
+const REFS=["Armijo, M. (2011). Planificación estratégica e indicadores de desempeño en el sector público. CEPAL/ILPES.",
+"Código Civil, Libro I, Título XXXIII, arts. 557 y 557-1, modificado por la Ley 20.500 (2011).",
+"Comunidad de Organizaciones Solidarias. Manual FECU Social v2.0; Informe FECU Social (2024); Programa Excelencia en Gestión (2025).",
+"Fundación Crecer con Todos. Sitio institucional: equipo, alianzas e impacto; FECU Social 2020.",
+"Gartner (2025). Hiperautomatización.",
+"Gertler, P., Martínez, S., Premand, P., Rawlings, L. y Vermeersch, C. (2011). La evaluación de impacto en la práctica. Banco Mundial.",
+"Hays (2025). Tendencias del mercado laboral en América Latina.",
+"HM Treasury (2023). The Orange Book: Management of Risk.",
+"IFC (2021). Control interno: marco COSO 2013 y modelo de Tres Líneas (IIA, 2020).",
+"IFRS Foundation (2024). NIIF para las PYMES, tercera edición.",
+"Jurevicius, O. (2025). Modelo de estrella de Galbraith.",
+"Kaizen Institute (2024). Marco DMAIC y metodología 5S.",
+"Kaplan, R. y Norton, D. (1992). The Balanced Scorecard: Measures that Drive Performance. Harvard Business Review.",
+"Kaplan, R. y Norton, D. (2007). Using the Balanced Scorecard as a Strategic Management System. Harvard Business Review.",
+"Ley 19.886 modificada por Ley 21.634 (2023) y Reglamento DS 661/2024; Directiva ChileCompra N°10/2025.",
+"Ley 21.131 (2019), pago a 30 días; Ley 21.561 (2023), jornada de 40 horas; Ley 21.643 (2024), prevención del acoso.",
+"Mackay, A. (2005). A Practitioner's Guide to the Balanced Scorecard. CIMA.",
+"Martela, F. y Nandram, S. (2024). Autogestión a escala: el caso Buurtzorg.",
+"Mintzberg, H. (1983). Structure in Fives: Designing Effective Organizations.",
+"OCDE (2014). Indicadores de desempeño en compras públicas; OCDE (2024). Sistemas de información financiera pública.",
+"OpenStax (2022). Principles of Finance. Caps. 6, 16 y 18.",
+"Valenzuela, M. (s.f.). Medidas de riesgo financiero: Value at Risk.",
+"Vega, F. et al. (2022). Planificación para resultados. Provincia de Río Negro."];
+document.getElementById("refs").innerHTML=REFS.map(r=>`<li>${r}</li>`).join("");
+});
+</script>
+<template id="tpl-sim">
+  <div class="sim">
+    <h4>Escenario de caja estacional (ilustrativo)</h4>
+    <p class="cap print-only">Escenario base. La versión web permite simular los escenarios adverso y de expansión y mover cada supuesto.</p>
+    <div class="seg" role="group" aria-label="Escenario">
+      <button type="button" data-s="base" aria-pressed="true">Base</button>
+      <button type="button" data-s="cons" aria-pressed="false">Adverso</button>
+      <button type="button" data-s="exp" aria-pressed="false">Expansión</button>
+    </div>
+    <div class="ctrls">
+      <div class="ctrl"><label for="r-ing">Ventas públicas del año <output id="o-ing"></output></label><input id="r-ing" type="range" min="300" max="1200" step="10"></div>
+      <div class="ctrl"><label for="r-pago">Plazo medio de cobro <output id="o-pago"></output></label><input id="r-pago" type="range" min="15" max="120" step="5"></div>
+      <div class="ctrl"><label for="r-ant">Costo directo pagado antes de marzo <output id="o-ant"></output></label><input id="r-ant" type="range" min="10" max="60" step="5"></div>
+    </div>
+    <div class="scroll"><svg id="csim" viewBox="0 0 640 210" role="img" aria-label="Variación acumulada de caja operacional por mes"></svg></div>
+    <div class="res">
+      <div><b id="k-min"></b><span>saldo acumulado mínimo</span></div>
+      <div><b id="k-mes"></b><span>mes de menor saldo</span></div>
+      <div><b id="k-lin"></b><span>capital de trabajo requerido (+20% holgura)</span></div>
+    </div>
+    <p class="cap">Variación acumulada de caja operacional desde el 1 de enero. Supuestos: costo directo 55% de las ventas, gasto fijo 40% repartido en 12 meses, cobros según la estacionalidad 2020–2026 de las órdenes de compra. No usa información contable de la Fundación.</p>
+  </div>
+</template>
+
+
+</body></html>
